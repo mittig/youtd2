@@ -11,13 +11,16 @@ body {
 	border: 0 none;
 	padding: 0;
 	text-align: center;
-	background-color: black;
+	background-image: url("icob_youtube_4.png");
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 #canvas {
 	display: block;
 	margin: 0;
-	color: white;
+	color: transparent;
 }
 
 #canvas:focus {
@@ -108,12 +111,33 @@ body {
 	padding: 4px 6px;
 	visibility: visible;
 }
+
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.background-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 		</style>
 		<link id='-gd-engine-icon' rel='icon' type='image/png' href='index.icon.png' />
 <link rel='apple-touch-icon' href='index.apple-touch-icon.png'/>
 <script src="enable-threads.js"></script>
 	</head>
 	<body>
+	    <div class="background-video">
+	        <video autoplay muted loop>
+	            <source src="OrderlyTintedIsabellinewheatear.mp4" type="video/mp4">
+	        </video>
+	    </div>
 		<canvas id="canvas">
 			HTML5 canvas appears to be unsupported in the current browser.<br >
 			Please try updating or use a different browser.
@@ -245,4 +269,3 @@ const engine = new Engine(GODOT_CONFIG);
 		</script>
 	</body>
 </html>
-
