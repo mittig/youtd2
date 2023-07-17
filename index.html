@@ -129,16 +129,13 @@
 	</style>
 	<link id='-gd-engine-icon' rel='icon' type='image/png' href='index.icon.png' />
 	<link rel='apple-touch-icon' href='index.apple-touch-icon.png'/>
-	<script
-	  src="https://js.sentry-cdn.com/2c45aced288f448c80f8fb8d682c341c.min.js"
-	  crossorigin="anonymous"
-	></script>
+	<script src="https://js.sentry-cdn.com/2c45aced288f448c80f8fb8d682c341c.min.js" crossorigin="anonymous"></script>
 	<script>
 		if (window.Sentry !== undefined) { // Check that Sentry is defined, because it could have been blocked by an ad blocker.
 			Sentry.onLoad(function () {
 				Sentry.init({
 				  dsn: "https://2c45aced288f448c80f8fb8d682c341c@o4505518956675072.ingest.sentry.io/4505518957658113",
-				  release: "youtd2@0.4.6",
+				  release: "youtd2@0.4.7",
 				  integrations: [new Sentry.BrowserTracing()],
 				  tracesSampleRate: 1.0,
 				});
