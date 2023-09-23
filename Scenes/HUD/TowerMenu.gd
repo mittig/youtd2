@@ -14,18 +14,18 @@ const _tiny_unit_button_theme: Theme = preload("res://Resources/Theme/tiny_unit_
 @export var _unit_name_button: Button
 @export var _unit_info_label: RichTextLabel
 @export var _unit_icon_texture: TextureRect
-@export var _unit_specials_container: VBoxContainer
+@export var _unit_special_container: VBoxContainer
 @export var _unit_level_label: Label
 @export var _unit_control_menu: VBoxContainer
 @export var _unit_stats_menu: ScrollContainer
 @export var _buffs_container: GridContainer
 @export var _info_label: RichTextLabel
-@export var _specials_container: VBoxContainer
+@export var _specials_container: Panel
 @export var _tier_icon_texture: TextureRect
 @export var _specials_label: RichTextLabel
 @export var _inventory_empty_slots: HBoxContainer
 @export var _inventory: PanelContainer
-@export var _main_container: VBoxContainer
+@export var _unit_info_container: Panel
 
 var _selling_for_real: bool = false
 
@@ -33,10 +33,7 @@ var _selling_for_real: bool = false
 func _ready():
 #	NOTE: fix unused warnings
 	_unit_info_label = _unit_info_label
-	_unit_specials_container = _unit_specials_container
-	_specials_container = _specials_container
-	
-	_main_container.hide()
+	_unit_special_container = _unit_special_container
 	
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 	
@@ -52,8 +49,6 @@ func _ready():
 	_sell_button.pressed.connect(_on_sell_button_pressed)
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
 	_info_button.pressed.connect(_on_info_button_pressed)
-	_unit_name_button.toggled.connect(_on_unit_name_button_toggled)
-	visibility_changed.connect(_on_visibility_changed)
 	_upgrade_button.mouse_entered.connect(_on_tower_upgrade_button_mouse_entered)
 	_upgrade_button.mouse_exited.connect(_on_tower_upgrade_button_mouse_exited)
 
@@ -69,6 +64,13 @@ func _process(_delta: float):
 
 	if selected_unit != null:
 		_update_info_label(selected_unit)
+
+
+func update_visibility_mode(collapsed: bool):
+	_unit_stats_menu.visible = false
+	_unit_control_menu.visible = true
+	for collapsable_node in get_tree().get_nodes_in_group("collapsable"):
+		collapsable_node.visible = collapsed
 
 
 func _on_game_mode_was_chosen():
@@ -137,10 +139,6 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_sell_button.hide()
 	
 	_set_selling_for_real(false)
-
-
-func is_visibility_mode_expanded() -> bool:
-	return _main_container.visible
 
 
 func get_selected_tower() -> Tower:
@@ -465,25 +463,3 @@ func _get_tooltip_for_info_label(unit: Unit) -> String:
 		tooltip += text_for_damage_taken
 
 		return tooltip
-
-
-func _on_visibility_changed():
-	if not visible:
-		_on_unit_name_button_toggled(visible)
-
-
-func _on_unit_name_button_toggled(toggle: bool):
-	if toggle:
-		_main_container.show()
-		_unit_name_button.get_parent().set_h_size_flags(SIZE_SHRINK_CENTER)
-	else:
-		_main_container.hide()
-		_unit_name_button.get_parent().set_h_size_flags(SIZE_SHRINK_END)
-	
-	if toggle:
-		for button in _unit_name_button.button_group.get_buttons():
-			button.hide()
-		_unit_name_button.show()
-	else:
-		for button in _unit_name_button.button_group.get_buttons():
-			button.show()

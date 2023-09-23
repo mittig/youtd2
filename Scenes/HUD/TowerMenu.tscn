@@ -1,11 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://chojoq00uw7ng"]
+[gd_scene load_steps=17 format=3 uid="uid://chojoq00uw7ng"]
 
 [ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/tower_menu_theme.tres" id="1_crn3l"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_8sf0j"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_kbar0"]
 [ext_resource type="Script" path="res://Scenes/HUD/TowerMenu.gd" id="2_sqv8k"]
 [ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="3_8hdh7"]
-[ext_resource type="ButtonGroup" uid="uid://ce5xw83da2d6c" path="res://Resources/UI/ButtonGroup/right_panel_button_group.tres" id="4_5rlh7"]
 [ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="4_8bkul"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/TowerMenu/tower_level_label_normal.tres" id="5_t4ptj"]
 [ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerInfo.tscn" id="6_calw6"]
@@ -38,7 +37,7 @@ atlas = ExtResource("2_kbar0")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
-[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_unit_name_button", "_unit_info_label", "_unit_icon_texture", "_unit_specials_container", "_unit_level_label", "_unit_control_menu", "_unit_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots", "_inventory", "_main_container")]
+[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_unit_name_button", "_unit_info_label", "_unit_icon_texture", "_unit_level_label", "_unit_control_menu", "_unit_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots", "_inventory")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -63,7 +62,6 @@ _items_box_container = NodePath("MainContainer/MarginContainer/Panel/MarginConta
 _unit_name_button = NodePath("MarginContainer2/UnitName")
 _unit_info_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer/SpecialsLabel")
 _unit_icon_texture = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer/IconContainer/UnitIcon")
-_unit_specials_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer/UnitSpecialContainer")
 _unit_level_label = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/UnitLevelLabel")
 _unit_control_menu = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu")
 _unit_stats_menu = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitStatsMenu")
@@ -74,7 +72,6 @@ _tier_icon_texture = NodePath("MainContainer/MarginContainer/Panel/MarginContain
 _specials_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer/SpecialsLabel")
 _inventory_empty_slots = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots")
 _inventory = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory")
-_main_container = NodePath("MainContainer")
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 
@@ -82,7 +79,7 @@ _main_container = NodePath("MainContainer")
 show_behind_parent = true
 z_index = 1
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = -20
@@ -94,7 +91,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_8hdh7")
 toggle_mode = true
-button_group = ExtResource("4_5rlh7")
+button_pressed = true
 text = "Tower Name"
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
@@ -124,7 +121,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="InfoContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu"]
+[node name="InfoContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu" groups=["collapsable"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -213,7 +210,7 @@ text = "Info"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SpecialsContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu"]
+[node name="SpecialsContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu" groups=["collapsable"]]
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -373,7 +370,7 @@ focus_mode = 0
 icon = SubResource("AtlasTexture_0gno2")
 expand_icon = true
 
-[node name="UnitInfoButton" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="UnitInfoButton" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer" groups=["collapsable"]]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -403,4 +400,5 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 8
 
+[connection signal="toggled" from="MarginContainer2/UnitName" to="." method="update_visibility_mode"]
 [connection signal="gui_input" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/ItemsContainer" to="." method="_on_items_container_gui_input"]
