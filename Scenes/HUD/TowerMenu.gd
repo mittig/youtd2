@@ -71,6 +71,7 @@ func update_visibility_mode(collapsed: bool):
 	_unit_control_menu.visible = true
 	for collapsable_node in get_tree().get_nodes_in_group("collapsable"):
 		collapsable_node.visible = collapsed
+	reset_size()
 
 
 func _on_game_mode_was_chosen():
