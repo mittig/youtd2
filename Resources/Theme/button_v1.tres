@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=7 format=3 uid="uid://b2bbg575pggjf"]
 
 [ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="1_av02q"]
-[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/curvy_border_box.tres" id="2_ml5le"]
+[ext_resource type="StyleBox" uid="uid://cy5lvsmmua3pb" path="res://Resources/Theme/Common/curvy_border_box.tres" id="2_ml5le"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c67wk"]
 atlas = ExtResource("1_av02q")
