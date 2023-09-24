@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=20 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD.tscn" id="2"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" path="res://Scenes/MovableEmeddedWindow.gd" id="12_twc0r"]
 [ext_resource type="PackedScene" uid="uid://ckiupnhfj32n6" path="res://Scenes/HUD/HoradricMenu2.tscn" id="13_dy5m1"]
 [ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="14_ubux2"]
+[ext_resource type="Script" path="res://Scenes/EmbeddedCollapsableWindow2.gd" id="15_bd8kp"]
+[ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/TowerMenu.tscn" id="16_m05q5"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -149,9 +151,27 @@ grow_horizontal = 0
 theme = ExtResource("14_ubux2")
 text = "Horadric Cube"
 
+[node name="Window2" type="Window" parent="UI" node_paths=PackedStringArray("menu")]
+transparent_bg = true
+gui_snap_controls_to_pixels = false
+position = Vector2i(1484, 100)
+size = Vector2i(1000, 2899)
+wrap_controls = true
+transient = true
+theme = ExtResource("11_4yuph")
+script = ExtResource("15_bd8kp")
+menu = NodePath("UnitMenu")
+start_position = Vector2(2500, 200)
+initial_collapse_size = Vector2(560, 218)
+initial_expand_size = Vector2(560, 560)
+
+[node name="UnitMenu" parent="UI/Window2" instance=ExtResource("16_m05q5")]
+
 [connection signal="finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_finished"]
 [connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]
 [connection signal="finished" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_finished"]
 [connection signal="close_requested" from="UI/Window" to="UI/Window" method="_on_close_requested"]
 [connection signal="theme_changed" from="UI/Window" to="UI/Window" method="_on_theme_changed"]
 [connection signal="pressed" from="UI/Window/TitleButton" to="UI/Window" method="_on_open_requested"]
+[connection signal="resized" from="UI/Window2/UnitMenu" to="UI/Window2" method="_on_unit_menu_resized"]
+[connection signal="visibility_mode_changed" from="UI/Window2/UnitMenu" to="UI/Window2" method="_on_control_visibility_mode_changed"]

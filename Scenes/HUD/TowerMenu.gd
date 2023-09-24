@@ -2,6 +2,9 @@ class_name UnitMenu
 extends PanelContainer
 
 
+signal visibility_mode_changed(collapsed: bool)
+
+
 const SELL_BUTTON_RESET_TIME: float = 5.0
 const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.png")
 const _tiny_unit_button_theme: Theme = preload("res://Resources/Theme/tiny_unit_button_theme.tres")
@@ -57,6 +60,8 @@ func _ready():
 		var empty_slot_button: EmptyUnitButton = EmptyUnitButton.make()
 		button_container.add_child(empty_slot_button)
 		_inventory_empty_slots.add_child(button_container)
+	
+	update_visibility_mode(false)
 
 
 func _process(_delta: float):
@@ -71,7 +76,8 @@ func update_visibility_mode(collapsed: bool):
 	_unit_control_menu.visible = true
 	for collapsable_node in get_tree().get_nodes_in_group("collapsable"):
 		collapsable_node.visible = collapsed
-	reset_size()
+#	reset_size()
+	visibility_mode_changed.emit(collapsed)
 
 
 func _on_game_mode_was_chosen():
