@@ -1,10 +1,11 @@
-extends PanelContainer
+extends CollapsablePanelContainer
 
 
 # Menu for the Horadric Cube. Contains items inside it.
 @export var _items_container: GridContainer
 @export var _transmute_button: Button
-@export var _main_container: VBoxContainer
+@export var _main_container: Container
+@export var _title_button: Button
 
 
 func _ready():
@@ -12,6 +13,12 @@ func _ready():
 	_items_container.gui_input.connect(_on_items_container_gui_input)
 	
 	_on_items_changed()
+	update_visibility_mode(false)
+
+
+func update_visibility_mode(expanded: bool):
+	_main_container.visible = expanded
+	visibility_mode_changed.emit(expanded)
 
 
 func _on_items_changed():

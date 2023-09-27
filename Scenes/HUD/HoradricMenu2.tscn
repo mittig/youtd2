@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://c7tov8p6m7vb4" path="res://Resources/Theme/HoradricMenu/horadric_menu_theme.tres" id="1_goc45"]
 [ext_resource type="Script" path="res://Scenes/HUD/HoradricMenu.gd" id="2_1vbsd"]
-[ext_resource type="StyleBox" uid="uid://cy5lvsmmua3pb" path="res://Resources/Theme/Common/curvy_border_box.tres" id="3_xge74"]
+[ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="3_anpy5"]
 [ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="5_g7trm"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="6_6747o"]
 [ext_resource type="Theme" uid="uid://coaqlvxijs4an" path="res://Resources/Theme/tiny_unit_button_theme.tres" id="6_k68sm"]
@@ -183,7 +183,7 @@ UncommonRarityPanelContainer/styles/panel = SubResource("StyleBoxTexture_fwu2f")
 UniqueRarityPanelContainer/base_type = &"PanelContainer"
 UniqueRarityPanelContainer/styles/panel = SubResource("StyleBoxTexture_gqeb4")
 
-[node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_items_container", "_transmute_button", "_main_container")]
+[node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_items_container", "_transmute_button", "_main_container", "_title_button")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -195,75 +195,77 @@ mouse_force_pass_scroll_events = false
 theme = ExtResource("1_goc45")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sda8v")
 script = ExtResource("2_1vbsd")
-_items_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer")
-_transmute_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/TransmuteButton")
-_main_container = NodePath("MainContainer")
+_items_container = NodePath("VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer")
+_transmute_button = NodePath("VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/TransmuteButton")
+_main_container = NodePath("VBoxContainer/MainContainer")
+_title_button = NodePath("VBoxContainer/MarginContainer2/TitleButton")
 
-[node name="MainContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="MainContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
 z_index = 1
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
 theme_override_constants/margin_bottom = -34
 
-[node name="TitleButton" type="Label" parent="MainContainer/MarginContainer2"]
+[node name="TitleButton" type="Button" parent="VBoxContainer/MarginContainer2"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = ExtResource("3_xge74")
+theme = ExtResource("3_anpy5")
+toggle_mode = true
 text = "Horadric Cube"
-horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
+[node name="MainContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="Panel" type="PanelContainer" parent="MainContainer/MarginContainer"]
+[node name="Panel" type="PanelContainer" parent="VBoxContainer/MainContainer"]
 custom_minimum_size = Vector2(600, 800)
 layout_mode = 2
 mouse_filter = 2
 theme_type_variation = &"MainPanelContainer"
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/Panel"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_top = 50
 
-[node name="UnitControlMenu" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer"]
+[node name="UnitControlMenu" type="VBoxContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="InfoContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu"]
+[node name="InfoContainer" type="PanelContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
-[node name="IconContainer" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer"]
+[node name="IconContainer" type="AspectRatioContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 alignment_vertical = 0
 
-[node name="UnitIcon" type="TextureRect" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer/IconContainer"]
+[node name="UnitIcon" type="TextureRect" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer/IconContainer"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_x27pf")
 expand_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.7
@@ -271,7 +273,7 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="InfoLabel" type="RichTextLabel" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer2"]
+[node name="InfoLabel" type="RichTextLabel" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
@@ -284,24 +286,24 @@ Drag items into the [color=GOLD]Cube[/color] and press [color=GOLD]Transmute[/co
 fit_content = true
 scroll_active = false
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1k678")
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 0
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
@@ -311,27 +313,27 @@ text = "Info"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SpecialsContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu"]
+[node name="SpecialsContainer" type="PanelContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_o64h1")
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 0
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
@@ -341,27 +343,27 @@ text = "Recipes"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer"]
+[node name="RecipeButton" type="Button" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer"]
 layout_mode = 2
 tooltip_text = "Converts [color=GOLD]2[/color] oils or consumables of the same rarity into [color=GOLD]1[/color] oil or consumable of the same rarity."
 theme = ExtResource("6_k68sm")
@@ -371,12 +373,12 @@ icon = SubResource("AtlasTexture_cjbga")
 alignment = 2
 expand_icon = true
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer2"]
+[node name="RecipeButton" type="Button" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer2"]
 layout_mode = 2
 tooltip_text = "Converts [color=GOLD]2[/color] oils or consumables of the same rarity into [color=GOLD]1[/color] oil or consumable of the same rarity."
 theme = ExtResource("6_k68sm")
@@ -386,12 +388,12 @@ icon = SubResource("AtlasTexture_cjbga")
 alignment = 2
 expand_icon = true
 
-[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer3"]
+[node name="RecipeButton" type="Button" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer3"]
 layout_mode = 2
 tooltip_text = "Converts [color=GOLD]2[/color] oils or consumables of the same rarity into [color=GOLD]1[/color] oil or consumable of the same rarity."
 theme = ExtResource("6_k68sm")
@@ -401,12 +403,12 @@ icon = SubResource("AtlasTexture_cjbga")
 alignment = 2
 expand_icon = true
 
-[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer4"]
+[node name="RecipeButton" type="Button" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer4"]
 layout_mode = 2
 tooltip_text = "Converts [color=GOLD]2[/color] oils or consumables of the same rarity into [color=GOLD]1[/color] oil or consumable of the same rarity."
 theme = ExtResource("6_k68sm")
@@ -416,10 +418,10 @@ icon = SubResource("AtlasTexture_cjbga")
 alignment = 2
 expand_icon = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
@@ -427,7 +429,7 @@ theme_override_font_sizes/font_size = 26
 text = "Rebrew"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
+[node name="Label2" type="Label" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
@@ -435,7 +437,7 @@ theme_override_font_sizes/font_size = 26
 text = "Distill"
 horizontal_alignment = 1
 
-[node name="Label3" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
+[node name="Label3" type="Label" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
@@ -443,7 +445,7 @@ theme_override_font_sizes/font_size = 26
 text = "Reassemble"
 horizontal_alignment = 1
 
-[node name="Label4" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
+[node name="Label4" type="Label" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
@@ -451,29 +453,29 @@ theme_override_font_sizes/font_size = 26
 text = "Perfect"
 horizontal_alignment = 1
 
-[node name="Inventory" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu"]
+[node name="Inventory" type="PanelContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu"]
 custom_minimum_size = Vector2(0, 93)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 0
 
-[node name="Label" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
@@ -483,82 +485,83 @@ text = "Cube"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="ItemsContainer" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer"]
+[node name="ItemsContainer" type="GridContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer"]
 layout_mode = 2
 mouse_filter = 0
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 3
 
-[node name="UnitButtonContainer" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer" groups=["item_button_container"]]
+[node name="UnitButtonContainer" type="AspectRatioContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer" groups=["item_button_container"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 2
 script = ExtResource("7_jc0mt")
 
-[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer" instance=ExtResource("6_6747o")]
+[node name="EmptyUnitButton" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer" instance=ExtResource("6_6747o")]
 layout_mode = 2
 
-[node name="UnitButtonContainer2" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer" groups=["item_button_container"]]
+[node name="UnitButtonContainer2" type="AspectRatioContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer" groups=["item_button_container"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("7_jc0mt")
 
-[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer2" instance=ExtResource("6_6747o")]
+[node name="EmptyUnitButton" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer2" instance=ExtResource("6_6747o")]
 layout_mode = 2
 
-[node name="UnitButtonContainer3" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer" groups=["item_button_container"]]
+[node name="UnitButtonContainer3" type="AspectRatioContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer" groups=["item_button_container"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 0
 script = ExtResource("7_jc0mt")
 
-[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer3" instance=ExtResource("6_6747o")]
+[node name="EmptyUnitButton" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer3" instance=ExtResource("6_6747o")]
 layout_mode = 2
 
-[node name="UnitButtonContainer4" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer" groups=["item_button_container"]]
+[node name="UnitButtonContainer4" type="AspectRatioContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer" groups=["item_button_container"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 2
 script = ExtResource("7_jc0mt")
 
-[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer4" instance=ExtResource("6_6747o")]
+[node name="EmptyUnitButton" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer4" instance=ExtResource("6_6747o")]
 layout_mode = 2
 
-[node name="UnitButtonContainer5" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer" groups=["item_button_container"]]
+[node name="UnitButtonContainer5" type="AspectRatioContainer" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer" groups=["item_button_container"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("7_jc0mt")
 
-[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer5" instance=ExtResource("6_6747o")]
+[node name="EmptyUnitButton" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer5" instance=ExtResource("6_6747o")]
 layout_mode = 2
 
-[node name="TransmuteButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer"]
+[node name="TransmuteButton" type="Button" parent="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = SubResource("Theme_oc2na")
 text = "Transmute"
 
-[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/TransmuteButton" to="." method="_on_transmute_button_pressed"]
+[connection signal="toggled" from="VBoxContainer/MarginContainer2/TitleButton" to="." method="update_visibility_mode"]
+[connection signal="pressed" from="VBoxContainer/MainContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/TransmuteButton" to="." method="_on_transmute_button_pressed"]

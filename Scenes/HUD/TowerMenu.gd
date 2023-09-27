@@ -1,8 +1,5 @@
 class_name UnitMenu
-extends PanelContainer
-
-
-signal visibility_mode_changed(collapsed: bool)
+extends CollapsablePanelContainer
 
 
 const SELL_BUTTON_RESET_TIME: float = 5.0
@@ -71,13 +68,12 @@ func _process(_delta: float):
 		_update_info_label(selected_unit)
 
 
-func update_visibility_mode(collapsed: bool):
+func update_visibility_mode(expanded: bool):
 	_unit_stats_menu.visible = false
 	_unit_control_menu.visible = true
 	for collapsable_node in get_tree().get_nodes_in_group("collapsable"):
-		collapsable_node.visible = collapsed
-#	reset_size()
-	visibility_mode_changed.emit(collapsed)
+		collapsable_node.visible = expanded
+	visibility_mode_changed.emit(expanded)
 
 
 func _on_game_mode_was_chosen():

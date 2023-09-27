@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=18 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD.tscn" id="2"]
@@ -11,9 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/PauseHUD/PauseHUD.tscn" id="9_r46bb"]
 [ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://Scenes/HUD/TutorialMenu.tscn" id="10_x7sb7"]
 [ext_resource type="Theme" uid="uid://dda56oy4pmsu6" path="res://Resources/Theme/movable_embedded_window_theme.tres" id="11_4yuph"]
-[ext_resource type="Script" path="res://Scenes/MovableEmeddedWindow.gd" id="12_twc0r"]
 [ext_resource type="PackedScene" uid="uid://ckiupnhfj32n6" path="res://Scenes/HUD/HoradricMenu2.tscn" id="13_dy5m1"]
-[ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="14_ubux2"]
 [ext_resource type="Script" path="res://Scenes/EmbeddedCollapsableWindow2.gd" id="15_bd8kp"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/TowerMenu.tscn" id="16_m05q5"]
 
@@ -118,60 +116,49 @@ offset_bottom = 52.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Window" type="Window" parent="UI" node_paths=PackedStringArray("menu", "open_button")]
+[node name="HoradricMenuWindow" type="Window" parent="UI" node_paths=PackedStringArray("_menu")]
 transparent_bg = true
 gui_snap_controls_to_pixels = false
-position = Vector2i(1484, 100)
-size = Vector2i(200, 46)
-wrap_controls = true
-transient = true
-max_size = Vector2i(200, 46)
-theme = ExtResource("11_4yuph")
-script = ExtResource("12_twc0r")
-menu = NodePath("HoradricMenu")
-open_button = NodePath("TitleButton")
-start_position = Vector2(2500, 100)
-
-[node name="HoradricMenu" parent="UI/Window" instance=ExtResource("13_dy5m1")]
-visible = false
-custom_minimum_size = Vector2(600, 800)
-offset_bottom = -547.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_0didh")
-
-[node name="TitleButton" type="Button" parent="UI/Window"]
-custom_minimum_size = Vector2(200, 0)
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -200.0
-offset_bottom = 46.0
-grow_horizontal = 0
-theme = ExtResource("14_ubux2")
-text = "Horadric Cube"
-
-[node name="Window2" type="Window" parent="UI" node_paths=PackedStringArray("menu")]
-transparent_bg = true
-gui_snap_controls_to_pixels = false
-position = Vector2i(1484, 100)
-size = Vector2i(1000, 2899)
+position = Vector2i(0, 36)
+size = Vector2i(1000, 3439)
 wrap_controls = true
 transient = true
 theme = ExtResource("11_4yuph")
 script = ExtResource("15_bd8kp")
-menu = NodePath("UnitMenu")
-start_position = Vector2(2500, 200)
-initial_collapse_size = Vector2(560, 218)
-initial_expand_size = Vector2(560, 560)
+_menu = NodePath("HoradricMenu")
+_start_position = Vector2(2500, 200)
 
-[node name="UnitMenu" parent="UI/Window2" instance=ExtResource("16_m05q5")]
+[node name="HoradricMenu" parent="UI/HoradricMenuWindow" instance=ExtResource("13_dy5m1")]
+visible = false
+custom_minimum_size = Vector2(560, 2.08165e-12)
+offset_right = -400.0
+offset_bottom = 1807.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0didh")
+
+[node name="UnitMenuWindow" type="Window" parent="UI" node_paths=PackedStringArray("_menu")]
+transparent_bg = true
+gui_snap_controls_to_pixels = false
+position = Vector2i(0, 36)
+size = Vector2i(560, 3013)
+wrap_controls = true
+transient = true
+theme = ExtResource("11_4yuph")
+script = ExtResource("15_bd8kp")
+_menu = NodePath("UnitMenu")
+_start_position = Vector2(2500, 100)
+
+[node name="UnitMenu" parent="UI/UnitMenuWindow" instance=ExtResource("16_m05q5")]
+visible = false
+offset_bottom = 73.0
 
 [connection signal="finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_finished"]
 [connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]
 [connection signal="finished" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_finished"]
-[connection signal="close_requested" from="UI/Window" to="UI/Window" method="_on_close_requested"]
-[connection signal="theme_changed" from="UI/Window" to="UI/Window" method="_on_theme_changed"]
-[connection signal="pressed" from="UI/Window/TitleButton" to="UI/Window" method="_on_open_requested"]
-[connection signal="resized" from="UI/Window2/UnitMenu" to="UI/Window2" method="_on_unit_menu_resized"]
-[connection signal="visibility_mode_changed" from="UI/Window2/UnitMenu" to="UI/Window2" method="_on_control_visibility_mode_changed"]
+[connection signal="close_requested" from="UI/HoradricMenuWindow" to="UI/HoradricMenuWindow" method="_on_close_requested"]
+[connection signal="theme_changed" from="UI/HoradricMenuWindow" to="UI/HoradricMenuWindow" method="_on_theme_changed"]
+[connection signal="resized" from="UI/HoradricMenuWindow/HoradricMenu" to="UI/HoradricMenuWindow" method="_on_menu_resized"]
+[connection signal="visibility_mode_changed" from="UI/HoradricMenuWindow/HoradricMenu" to="UI/HoradricMenuWindow" method="_on_control_visibility_mode_changed"]
+[connection signal="resized" from="UI/UnitMenuWindow/UnitMenu" to="UI/UnitMenuWindow" method="_on_menu_resized"]
+[connection signal="visibility_mode_changed" from="UI/UnitMenuWindow/UnitMenu" to="UI/UnitMenuWindow" method="_on_control_visibility_mode_changed"]
