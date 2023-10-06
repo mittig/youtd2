@@ -19,6 +19,9 @@ var _element_filter_button_group: ButtonGroup = preload("res://Resources/UI/Butt
 
 
 func _ready():
+#	NOTE: this is to fix "unused" warning
+	_center_menu = _center_menu	
+	
 	for item_filter_button in _item_rarity_filter_button_group.get_buttons():
 		item_filter_button.toggled.connect(_on_item_rarity_filter_button_toggled)
 	
@@ -60,7 +63,7 @@ func set_element(element: Element.enm):
 #	NOTE: set_value() is a member of Range class which is an
 #	ancestor of HScrollBar class
 	var scroll_bar: HScrollBar = _tower_stash_scroll_container.get_h_scroll_bar()
-	scroll_bar.set_value(100.0)
+	scroll_bar.set_value(0.0)
 
 
 func _on_item_rarity_filter_button_toggled(_toggle: bool):
@@ -81,7 +84,7 @@ func _on_item_type_filter_button_toggled(_toggle: bool):
 	if active_button:
 		_item_stash_menu.set_current_item_type_filter(active_button.filter_value)
 	else:
-		_item_stash_menu.set_current_item_type_filter(null)
+		_item_stash_menu.set_current_item_type_filter([])
 	
 #	NOTE: set_value() is a member of Range class which is an
 #	ancestor of HScrollBar class
@@ -105,7 +108,7 @@ func _on_stash_margin_container_gui_input(event):
 func _on_item_stash_changed():
 	var item_stash_container: ItemContainer = ItemStash.get_item_container()
 	for button in _item_rarity_filter_button_group.get_buttons():
-		button.set_items_count(item_stash_container.get_item_count(button.filter_value, null))
+		button.set_items_count(item_stash_container.get_item_count(button.filter_value, []))
 	for button in _item_type_filter_button_group.get_buttons():
 		button.set_items_count(item_stash_container.get_item_count(null, button.filter_value))
 

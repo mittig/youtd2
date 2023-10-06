@@ -13,6 +13,8 @@ signal level_changed
 signal level_up
 signal attack(event)
 signal attacked(event)
+# NOTE: dealt_damage() and damaged() are emitted only for
+# attack damage, not for spell damage.
 signal dealt_damage(event)
 signal damaged(event)
 signal kill(event)
@@ -226,6 +228,13 @@ func add_attack_crit():
 	_bonus_crit_ratio_for_next_attack += get_prop_atk_crit_damage() - 1.0
 
 
+# NOTE: unit.addCustomAttackCrit() in JASS
+func add_custom_attack_crit(custom_crit_ratio: float):
+	_bonus_crit_count_for_next_attack = _bonus_crit_count_for_next_attack + 1
+	_bonus_crit_ratio_for_next_attack = custom_crit_ratio
+
+
+# NOTE: unit.addModifiedAttackCrit() in JASS
 func add_modified_attack_crit(crit_damage_add: float, crit_damage_multiply: float):
 	_bonus_crit_count_for_next_attack = _bonus_crit_count_for_next_attack + 1
 	_bonus_crit_ratio_for_next_attack = (get_prop_atk_crit_damage() - 1.0) * crit_damage_multiply + crit_damage_add
@@ -1384,7 +1393,7 @@ func get_base_armor_damage_reduction() -> float:
 func get_current_armor_damage_reduction() -> float:
 	var armor: float = get_overall_armor()
 	var coeff: float = Constants.ARMOR_COEFFICIENT
-	var reduction: float = min(1.0, (armor * coeff) / (1.0 + armor * coeff))
+	var reduction: float = clampf((armor * coeff) / (1.0 + armor * coeff), 0.0, 1.0)
 
 	return reduction
 
@@ -1405,7 +1414,7 @@ func get_base_armor_bonus_percent() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_ARMOR_PERC])
 
 func get_overall_armor() -> float:
-	return (get_base_armor() + get_base_armor_bonus()) * get_base_armor_bonus_percent()
+	return max(0, (get_base_armor() + get_base_armor_bonus()) * get_base_armor_bonus_percent())
 
 func get_overall_armor_bonus() -> float:
 	return (get_base_armor() + get_base_armor_bonus()) * get_base_armor_bonus_percent() - get_base_armor()

@@ -627,6 +627,9 @@ func _get_next_bounce_target(prev_target: Creep, visited_list: Array[Unit]) -> C
 	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, prev_target.position, Constants.BOUNCE_ATTACK_RANGE)
 
 	for visited_creep in visited_list:
+		if !Utils.unit_is_valid(visited_creep):
+			continue
+
 		creep_list.erase(visited_creep)
 
 	Utils.sort_unit_list_by_distance(creep_list, prev_target.position)
@@ -761,7 +764,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Unit):
 	var current_damage: float = projectile.user_real
 	var current_bounce_index: int = projectile.user_int
-	var bounce_visited_list: Array[Unit] = projectile._tower_bounce_visited_list
+	var bounce_visited_list: Array[Unit] = projectile.get_tower_bounce_visited_list()
 	bounce_visited_list.append(current_target)
 
 	var crit_count: int = projectile.get_tower_crit_count()
