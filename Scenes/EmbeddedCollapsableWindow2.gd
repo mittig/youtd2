@@ -12,6 +12,10 @@ extends Window
 var expanded_size: Vector2 = _start_size
 
 
+func _ready():
+	position = _start_position
+
+
 func _on_control_visibility_mode_changed(expanded: bool, reset: bool):
 	if expanded:
 		if reset:
@@ -33,3 +37,7 @@ func _on_control_visibility_mode_changed(expanded: bool, reset: bool):
 func _on_window_resized():
 	_menu.set_position(Vector2.ZERO)
 	_menu.set_size(size)
+
+
+func convert_position(pos: Vector2) -> Vector2:
+	return Vector2(pos.x - size.x, pos.y)

@@ -117,33 +117,31 @@ grow_vertical = 2
 [node name="HoradricMenuWindow" type="Window" parent="UI" node_paths=PackedStringArray("_menu")]
 transparent_bg = true
 gui_snap_controls_to_pixels = false
-position = Vector2i(0, 36)
+position = Vector2i(1139, 36)
 size = Vector2i(600, 836)
 transient = true
 theme = ExtResource("11_4yuph")
-theme_override_constants/resize_margin = 10
 script = ExtResource("15_bd8kp")
 _menu = NodePath("HoradricMenu")
-_start_position = Vector2(2500, 200)
+_start_position = Vector2(1951, 281)
 _start_size = Vector2(600, 836)
 
 [node name="HoradricMenu" parent="UI/HoradricMenuWindow" instance=ExtResource("13_dy5m1")]
+custom_minimum_size = Vector2(600, 2.08165e-12)
 
 [node name="UnitMenuWindow" type="Window" parent="UI" node_paths=PackedStringArray("_menu")]
 transparent_bg = true
 gui_snap_controls_to_pixels = false
-position = Vector2i(0, 36)
+position = Vector2i(1179, 36)
 size = Vector2i(560, 3086)
 transient = true
 theme = ExtResource("11_4yuph")
-theme_override_constants/resize_margin = 10
 script = ExtResource("15_bd8kp")
 _menu = NodePath("UnitMenu")
-_start_position = Vector2(2500, 100)
+_start_position = Vector2(1961, 36)
 _start_size = Vector2(560, 719)
 
 [node name="UnitMenu" parent="UI/UnitMenuWindow" instance=ExtResource("16_m05q5")]
-visible = false
 
 [connection signal="finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_finished"]
 [connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]
