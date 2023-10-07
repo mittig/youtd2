@@ -63,7 +63,3 @@ func _on_items_container_gui_input(event):
 
 	if left_click:
 		ItemMovement.horadric_menu_was_clicked()
-
-
-func _on_visibility_mode_changed(expanded):
-	print("[visibility mode changed] %s to %s" % [name, expanded])
