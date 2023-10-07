@@ -17,11 +17,12 @@ func _ready():
 	
 	_on_items_changed()
 	update_visibility_mode(false)
+	_on_resized()
 
 
 func update_visibility_mode(expanded: bool):
 	_main_container.visible = expanded
-	visibility_mode_changed.emit(expanded)
+	super.update_visibility_mode(expanded)
 
 
 func _on_items_changed():
@@ -62,3 +63,7 @@ func _on_items_container_gui_input(event):
 
 	if left_click:
 		ItemMovement.horadric_menu_was_clicked()
+
+
+func _on_visibility_mode_changed(expanded):
+	print("[visibility mode changed] %s to %s" % [name, expanded])

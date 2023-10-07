@@ -120,19 +120,14 @@ grow_vertical = 2
 transparent_bg = true
 gui_snap_controls_to_pixels = false
 position = Vector2i(0, 36)
-size = Vector2i(1000, 3439)
-wrap_controls = true
+size = Vector2i(600, 816)
 transient = true
-theme = ExtResource("11_4yuph")
 script = ExtResource("15_bd8kp")
 _menu = NodePath("HoradricMenu")
 _start_position = Vector2(2500, 200)
+_start_size = Vector2(600, 816)
 
 [node name="HoradricMenu" parent="UI/HoradricMenuWindow" instance=ExtResource("13_dy5m1")]
-visible = false
-custom_minimum_size = Vector2(560, 2.08165e-12)
-offset_right = -400.0
-offset_bottom = 1807.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_0didh")
@@ -141,24 +136,27 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_0didh")
 transparent_bg = true
 gui_snap_controls_to_pixels = false
 position = Vector2i(0, 36)
-size = Vector2i(560, 3013)
+size = Vector2i(560, 3086)
 wrap_controls = true
 transient = true
 theme = ExtResource("11_4yuph")
 script = ExtResource("15_bd8kp")
 _menu = NodePath("UnitMenu")
 _start_position = Vector2(2500, 100)
+_start_size = Vector2(560, 719)
 
 [node name="UnitMenu" parent="UI/UnitMenuWindow" instance=ExtResource("16_m05q5")]
 visible = false
-offset_bottom = 73.0
 
 [connection signal="finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_finished"]
 [connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]
 [connection signal="finished" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_finished"]
 [connection signal="close_requested" from="UI/HoradricMenuWindow" to="UI/HoradricMenuWindow" method="_on_close_requested"]
+[connection signal="size_changed" from="UI/HoradricMenuWindow" to="UI/HoradricMenuWindow" method="_on_window_resized"]
 [connection signal="theme_changed" from="UI/HoradricMenuWindow" to="UI/HoradricMenuWindow" method="_on_theme_changed"]
-[connection signal="resized" from="UI/HoradricMenuWindow/HoradricMenu" to="UI/HoradricMenuWindow" method="_on_menu_resized"]
+[connection signal="resized" from="UI/HoradricMenuWindow/HoradricMenu" to="UI/HoradricMenuWindow/HoradricMenu" method="_on_resized"]
 [connection signal="visibility_mode_changed" from="UI/HoradricMenuWindow/HoradricMenu" to="UI/HoradricMenuWindow" method="_on_control_visibility_mode_changed"]
+[connection signal="visibility_mode_changed" from="UI/HoradricMenuWindow/HoradricMenu" to="UI/HoradricMenuWindow/HoradricMenu" method="_on_visibility_mode_changed"]
+[connection signal="size_changed" from="UI/UnitMenuWindow" to="UI/UnitMenuWindow" method="_on_window_resized"]
 [connection signal="resized" from="UI/UnitMenuWindow/UnitMenu" to="UI/UnitMenuWindow" method="_on_menu_resized"]
 [connection signal="visibility_mode_changed" from="UI/UnitMenuWindow/UnitMenu" to="UI/UnitMenuWindow" method="_on_control_visibility_mode_changed"]
