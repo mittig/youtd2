@@ -73,24 +73,6 @@ _inventory = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitC
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-show_behind_parent = true
-z_index = 1
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = -20
-theme_override_constants/margin_right = 10
-
-[node name="UnitName" type="Button" parent="MarginContainer2"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("3_8hdh7")
-toggle_mode = true
-text = "Tower Name"
-
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
@@ -398,5 +380,22 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 8
 
-[connection signal="toggled" from="MarginContainer2/UnitName" to="." method="update_visibility_mode"]
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = -20
+theme_override_constants/margin_right = 10
+
+[node name="UnitName" type="Button" parent="MarginContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme = ExtResource("3_8hdh7")
+toggle_mode = true
+text = "Tower Name"
+
 [connection signal="gui_input" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/ItemsContainer" to="." method="_on_items_container_gui_input"]
+[connection signal="toggled" from="MarginContainer2/UnitName" to="." method="update_visibility_mode"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=17 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD.tscn" id="2"]
@@ -26,8 +26,6 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 5619, 2972, 0, 0, 0, 0, 4732, 3420, 0, 0, 0, 0, 4768, 5509, 0, 0, 0, 0, 1724, 5414, 0, 0, 0, 0, 2037, 6782, 0, 0, 0, 0, -95, 7837)
 }
 point_count = 6
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0didh"]
 
 [node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_wave_spawner", "_tutorial_menu")]
 process_mode = 3
@@ -120,25 +118,21 @@ grow_vertical = 2
 transparent_bg = true
 gui_snap_controls_to_pixels = false
 position = Vector2i(0, 36)
-size = Vector2i(600, 816)
+size = Vector2i(600, 836)
 transient = true
 theme = ExtResource("11_4yuph")
 script = ExtResource("15_bd8kp")
 _menu = NodePath("HoradricMenu")
 _start_position = Vector2(2500, 200)
-_start_size = Vector2(600, 816)
+_start_size = Vector2(600, 836)
 
 [node name="HoradricMenu" parent="UI/HoradricMenuWindow" instance=ExtResource("13_dy5m1")]
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_0didh")
 
 [node name="UnitMenuWindow" type="Window" parent="UI" node_paths=PackedStringArray("_menu")]
 transparent_bg = true
 gui_snap_controls_to_pixels = false
 position = Vector2i(0, 36)
 size = Vector2i(560, 3086)
-wrap_controls = true
 transient = true
 theme = ExtResource("11_4yuph")
 script = ExtResource("15_bd8kp")
