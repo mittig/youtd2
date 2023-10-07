@@ -9,12 +9,15 @@ extends Window
 # Record window size in expand mode, and use this value
 # to restore window size after the control is switched 
 # from collapsed mode to expand mode.
-var expanded_size: Vector2
+var expanded_size: Vector2 = _start_size
 
 
-func _on_control_visibility_mode_changed(expanded: bool):
+func _on_control_visibility_mode_changed(expanded: bool, reset: bool):
 	if expanded:
-		set_size(expanded_size)
+		if reset:
+			set_deferred("size", _start_size)
+		else:
+			set_size(expanded_size)
 	else:
 		expanded_size = size
 		set_size(_menu.size)

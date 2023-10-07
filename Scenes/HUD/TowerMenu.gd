@@ -466,3 +466,7 @@ func _get_tooltip_for_info_label(unit: Unit) -> String:
 		tooltip += text_for_damage_taken
 
 		return tooltip
+
+
+func is_expanded() -> bool:
+	return _unit_name_button.button_pressed

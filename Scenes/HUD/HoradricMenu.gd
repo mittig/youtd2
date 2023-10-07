@@ -63,3 +63,7 @@ func _on_items_container_gui_input(event):
 
 	if left_click:
 		ItemMovement.horadric_menu_was_clicked()
+
+
+func is_expanded() -> bool:
+	return _title_button.button_pressed

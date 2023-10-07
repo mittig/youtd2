@@ -89,7 +89,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_8hdh7")
 toggle_mode = true
-button_pressed = true
 text = "Tower Name"
 
 [node name="MainContainer" type="VBoxContainer" parent="."]

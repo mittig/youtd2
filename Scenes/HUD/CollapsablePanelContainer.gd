@@ -2,7 +2,7 @@ class_name CollapsablePanelContainer
 extends PanelContainer
 
 
-signal visibility_mode_changed(expanded: bool)
+signal visibility_mode_changed(expanded: bool, reset: bool)
 
 
 func _ready():
@@ -12,7 +12,12 @@ func _ready():
 
 func update_visibility_mode(expanded: bool):
 	set_size(Vector2.ZERO)
-	visibility_mode_changed.emit(expanded)
+	visibility_mode_changed.emit(expanded, false)
+
+
+# Should be implemented in inheritors.
+func is_expanded() -> bool:
+	return true
 
 
 # Just to make sure the contents inside the window
@@ -26,4 +31,7 @@ func _on_resized():
 		# whenever strange uncontrolled resizing happens.
 		# Resetting size in the same frame won't work.
 		set_deferred("size", 0)
+		# Now we need to make sure that parent Window is
+		# resized as well.
+		visibility_mode_changed.emit(is_expanded(), true)
 		
