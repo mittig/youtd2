@@ -31901,7 +31901,7 @@ var GodotAudio = {
     GodotAudio.input = GodotAudio.ctx.createMediaStreamSource(stream);
     callback(GodotAudio.input);
    } catch (e) {
-    GodotRuntime.error("Failed creaating input.", e);
+    GodotRuntime.error("Failed creating input.", e);
    }
   }
   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -32576,11 +32576,11 @@ var GodotDisplayScreen = {
   const isFullscreen = GodotDisplayScreen.isFullscreen();
   const wantsFullWindow = GodotConfig.canvas_resize_policy === 2;
   const noResize = GodotConfig.canvas_resize_policy === 0;
-  const wwidth = GodotDisplayScreen.desired_size[0];
-  const wheight = GodotDisplayScreen.desired_size[1];
+  const dWidth = GodotDisplayScreen.desired_size[0];
+  const dHeight = GodotDisplayScreen.desired_size[1];
   const canvas = GodotConfig.canvas;
-  let width = wwidth;
-  let height = wheight;
+  let width = dWidth;
+  let height = dHeight;
   if (noResize) {
    if (canvas.width !== width || canvas.height !== height) {
     GodotDisplayScreen.desired_size = [ canvas.width, canvas.height ];
@@ -32856,7 +32856,7 @@ function _godot_js_display_clipboard_set(p_text) {
   return 1;
  }
  navigator.clipboard.writeText(text).catch(function(e) {
-  GodotRuntime.error("Setting OS clipboard is only possible from an input callback for the Web plafrom. Exception:", e);
+  GodotRuntime.error("Setting OS clipboard is only possible from an input callback for the Web platform. Exception:", e);
  });
  return 0;
 }
@@ -33134,22 +33134,17 @@ var GodotFetch = {
    return;
   }
   let chunked = false;
-  let bodySize = -1;
   response.headers.forEach(function(value, header) {
    const v = value.toLowerCase().trim();
    const h = header.toLowerCase().trim();
    if (h === "transfer-encoding" && v === "chunked") {
     chunked = true;
    }
-   if (h === "content-length") {
-    bodySize = parseInt(v, 10);
-   }
   });
   obj.status = response.status;
   obj.response = response;
   obj.reader = response.body.getReader();
   obj.chunked = chunked;
-  obj.bodySize = bodySize;
  },
  onerror: function(id, err) {
   GodotRuntime.error(err);
@@ -33168,8 +33163,7 @@ var GodotFetch = {
    done: false,
    reading: false,
    status: 0,
-   chunks: [],
-   bodySize: -1
+   chunks: []
   };
   const id = IDHandler.add(obj);
   const init = {
@@ -33316,18 +33310,6 @@ function _godot_js_fetch_read_chunk(p_id, p_buf, p_buf_size) {
 Module["_godot_js_fetch_read_chunk"] = _godot_js_fetch_read_chunk;
 
 _godot_js_fetch_read_chunk.sig = "iiii";
-
-function _godot_js_fetch_body_length_get(p_id) {
- const obj = IDHandler.get(p_id);
- if (!obj || !obj.response) {
-  return -1;
- }
- return obj.bodySize;
-}
-
-Module["_godot_js_fetch_body_length_get"] = _godot_js_fetch_body_length_get;
-
-_godot_js_fetch_body_length_get.sig = "ii";
 
 function _godot_js_fetch_is_chunked(p_id) {
  const obj = IDHandler.get(p_id);
@@ -34028,7 +34010,7 @@ function _godot_webgl2_glFramebufferTextureMultiviewOVR(target, attachment, text
  if (typeof context.multiviewExt === "undefined") {
   const ext = context.GLctx.getExtension("OVR_multiview2");
   if (!ext) {
-   console.error("Trying to call glFramebufferTextureMultiviewOVR() without the OVR_multiview2 extension");
+   GodotRuntime.error("Trying to call glFramebufferTextureMultiviewOVR() without the OVR_multiview2 extension");
    return;
   }
   context.multiviewExt = ext;
@@ -34233,7 +34215,9 @@ function _godot_js_wrapper_create_cb(p_ref, p_func) {
   }
   GodotJSWrapper.cb_ret = null;
   const args = Array.from(arguments);
-  func(p_ref, GodotJSWrapper.get_proxied(args), args.length);
+  const argsProxy = new GodotJSWrapper.MyProxy(args);
+  func(p_ref, argsProxy.get_id(), args.length);
+  argsProxy.unref();
   const ret = GodotJSWrapper.cb_ret;
   GodotJSWrapper.cb_ret = null;
   return ret;
@@ -34362,7 +34346,7 @@ function _godot_js_eval(p_js, p_use_global_ctx, p_union_ptr, p_byte_arr, p_byte_
    const func = GodotRuntime.get_func(p_callback);
    const bytes_ptr = func(p_byte_arr, p_byte_arr_write, eval_ret.length);
    GROWABLE_HEAP_U8().set(eval_ret, bytes_ptr);
-   return 20;
+   return 29;
   }
   break;
  }
